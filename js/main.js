@@ -84,6 +84,7 @@ async function runHeroTypewriter() {
     role.textContent = roleText;
     paragraph.textContent = paraText;
     ctaButtons.forEach(b => b.classList.add('revealed'));
+    document.dispatchEvent(new CustomEvent('hero:ready'));
     return;
   }
 
@@ -115,6 +116,10 @@ async function runHeroTypewriter() {
   ctaButtons.forEach((btn, i) => {
     setTimeout(() => btn.classList.add('revealed'), 150 + i * 90);
   });
+
+  // hero text/name/paragraph have all reached their final size now — safe
+  // for anything that measures hero layout (e.g. the bubble field) to run.
+  document.dispatchEvent(new CustomEvent('hero:ready'));
 }
 
 runHeroTypewriter();
@@ -168,18 +173,34 @@ document.querySelectorAll('.view-btn').forEach(btn => {
 
   function rand(min, max) { return Math.random() * (max - min) + min; }
 
-  // percentage-space rectangles (relative to the field) to keep bubbles out of,
-  // with a little padding so they don't spawn hugging the text/blob edges either
+  // percentage-space rectangles (relative to the field) to keep bubbles out of.
+  // Both zones get a base padding so bubbles don't spawn hugging the edges,
+  // plus an extra buffer that's specific to each element:
+  //  - hero-visual keeps bobbing/tilting after layout settles (floatBob,
+  //    idle-wiggle, the click "reacting" pop), so its zone needs headroom
+  //    for that motion or a bubble parked just outside its static rect can
+  //    still end up covered by the logo later.
+  //  - hero-text is still being typed out when bubbles first spawn, so its
+  //    rect isn't final size yet; a modest buffer covers the last bit of
+  //    growth, and the real fix is spawning only after typing is done
+  //    (see the 'hero:ready' listener below).
+  const ZONE_BUFFER_PX = { text: 10, visual: 28 };
+
   function getExclusionZones() {
     const fieldRect = field.getBoundingClientRect();
-    const pad = 3; // % padding around each zone
-    return [heroText, heroVisual].filter(Boolean).map((el) => {
+    const basePad = 4; // % padding around each zone
+    return [
+      { el: heroText, extraPx: ZONE_BUFFER_PX.text },
+      { el: heroVisual, extraPx: ZONE_BUFFER_PX.visual }
+    ].filter(z => z.el).map(({ el, extraPx }) => {
       const r = el.getBoundingClientRect();
+      const extraXPct = (extraPx / fieldRect.width) * 100;
+      const extraYPct = (extraPx / fieldRect.height) * 100;
       return {
-        left: ((r.left - fieldRect.left) / fieldRect.width) * 100 - pad,
-        right: ((r.right - fieldRect.left) / fieldRect.width) * 100 + pad,
-        top: ((r.top - fieldRect.top) / fieldRect.height) * 100 - pad,
-        bottom: ((r.bottom - fieldRect.top) / fieldRect.height) * 100 + pad
+        left: ((r.left - fieldRect.left) / fieldRect.width) * 100 - basePad - extraXPct,
+        right: ((r.right - fieldRect.left) / fieldRect.width) * 100 + basePad + extraXPct,
+        top: ((r.top - fieldRect.top) / fieldRect.height) * 100 - basePad - extraYPct,
+        bottom: ((r.bottom - fieldRect.top) / fieldRect.height) * 100 + basePad + extraYPct
       };
     });
   }
@@ -189,7 +210,7 @@ document.querySelectorAll('.view-btn').forEach(btn => {
   }
 
   function findOpenSpot(zones) {
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 40; i++) {
       const x = rand(2, 96);
       const y = rand(3, 95);
       if (!overlapsZone(x, y, zones)) return { x, y };
@@ -265,15 +286,27 @@ document.querySelectorAll('.view-btn').forEach(btn => {
     setTimeout(dismissHint, 7000);
   }
 
-  // spawn after layout has settled so text/blob rects are accurate
-  requestAnimationFrame(() => {
+  function spawnAll() {
     let targetBubble = null;
     for (let i = 0; i < BUBBLE_COUNT; i++) {
       const b = spawnBubble();
       if (b && !targetBubble) targetBubble = b;
     }
     setTimeout(() => showHintNear(targetBubble), 900);
-  });
+  }
+
+  // Wait until the hero text has finished typing (final size) before
+  // spawning, so exclusion zones are measured against settled layout
+  // instead of a mid-animation snapshot. Falls back to a timer in case
+  // the event never fires (e.g. typewriter markup changes elsewhere).
+  let spawned = false;
+  function spawnOnce() {
+    if (spawned) return;
+    spawned = true;
+    requestAnimationFrame(spawnAll);
+  }
+  document.addEventListener('hero:ready', spawnOnce, { once: true });
+  setTimeout(spawnOnce, 6000); // safety net
 
   field.addEventListener('click', (e) => {
     const bubble = e.target.closest('.bubble');

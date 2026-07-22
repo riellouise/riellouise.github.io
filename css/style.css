@@ -1,14 +1,14 @@
 :root{
-  --bg:#F0EBE5;           /* cream paper */
+  --bg:#F0EBE5;          
   --surface:#FFFFFF;
-  --ink:#2B241E;          /* dark warm ink — added for readable text, not in swatch */
-  --dim:#8C7F71;          /* muted warm gray, secondary text */
-  --accent:#F4680A;       /* primary — name, primary CTA */
+  --ink:#2B241E;         
+  --dim:#8C7F71;        
+  --accent:#F4680A;     
   --accent-soft:rgba(244,104,10,0.12);
-  --accent-2:#F99D45;     /* secondary warm — icon, separators, role label */
-  --teal:#4E9DB8;         /* interactive / active state */
+  --accent-2:#F99D45;    
+  --teal:#4E9DB8;        
   --teal-soft:rgba(78,157,184,0.16);
-  --sky:#B4D5DD;          /* soft tint — borders, ghost bg, ambient shape */
+  --sky:#B4D5DD;         
   --sky-soft:rgba(180,213,221,0.35);
   --line:rgba(43,36,30,0.12);
   --line-strong:rgba(43,36,30,0.22);
@@ -46,25 +46,50 @@ a{color:inherit; text-decoration:none;}
   color:var(--dim);
   animation:slideDownFade 0.5s ease-out both;
 }
-.path-bar{display:flex; align-items:center; gap:10px; min-width:0;}
+.path-bar{display:flex; align-items:center; gap:14px; min-width:0;}
 .folder-icon{
   flex-shrink:0; color:var(--accent-2);
   transform-origin:bottom center;
   animation:flapOpen 0.5s ease-out 0.15s both;
 }
-.breadcrumb{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+
+.breadcrumb{
+  display:flex; align-items:flex-end; gap:0;
+  align-self:flex-end;
+  margin-bottom:-14px; 
+  position:relative;
+}
 .breadcrumb > *{opacity:0; animation:crumbIn 0.35s ease-out both;}
-.breadcrumb > *:nth-child(1){animation-delay:0.32s;}
-.breadcrumb > *:nth-child(2){animation-delay:0.39s;}
-.breadcrumb > *:nth-child(3){animation-delay:0.46s;}
-.breadcrumb > *:nth-child(4){animation-delay:0.53s;}
-.breadcrumb > *:nth-child(5){animation-delay:0.60s;}
-.breadcrumb > *:nth-child(6){animation-delay:0.67s;}
-.breadcrumb > *:nth-child(7){animation-delay:0.74s;}
-.crumb{color:var(--dim); transition:color 0.15s ease;}
-.crumb:hover{color:var(--teal);}
-.crumb.active{color:var(--teal); font-weight:600;}
-.sep{color:var(--accent-2); opacity:0.7;}
+.breadcrumb > *:nth-child(1){animation-delay:0.32s; z-index:4;}
+.breadcrumb > *:nth-child(2){animation-delay:0.40s; z-index:3;}
+.breadcrumb > *:nth-child(3){animation-delay:0.48s; z-index:2;}
+.breadcrumb > *:nth-child(4){animation-delay:0.56s; z-index:1;}
+
+.crumb{
+  position:relative;
+  color:var(--dim);
+  background:var(--sky-soft);
+  border:1px solid var(--line-strong);
+  border-bottom:none;
+  border-radius:10px 10px 0 0;
+  padding:8px 20px 14px;
+  font-size:12px;
+  font-weight:500;
+  margin-left:-4px;
+  box-shadow:0 2px 5px rgba(43,36,30,0.10);
+  transition:color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  cursor:pointer;
+}
+.crumb:first-child{ margin-left:0; }
+.crumb:hover{ color:var(--teal); }
+.crumb.active{
+  background:var(--bg);       
+  border-color:var(--line-strong);
+  color:var(--teal);
+  font-weight:700;
+  z-index:5 !important;
+  box-shadow:none;            
+}
 
 .status-bar{
   display:flex; align-items:center; gap:16px; flex-shrink:0;
@@ -90,7 +115,7 @@ a{color:inherit; text-decoration:none;}
 }
 
 @media (max-width:640px){ .file-meta, .view-toggle{display:none;} }
-@media (max-width:480px){ .breadcrumb .crumb:not(.active){display:none;} .sep{display:none;} }
+@media (max-width:480px){ .crumb:not(.active){display:none;} }
 
 /* ---------- layout ---------- */
 .wrap{
@@ -118,7 +143,7 @@ section{padding:32px 0;}
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:clamp(16px, 3vw, 32px);
+  gap:clamp(28px, 5vw, 56px);
   text-align:center;
   position:relative;
   overflow:hidden;
@@ -298,7 +323,11 @@ section{padding:32px 0;}
 .btn:active{transform:scale(0.97);}
 
 /* logo panel */
-.hero-visual{display:flex; align-items:center; justify-content:center; position:relative;}
+.hero-visual{
+  display:flex; align-items:center; justify-content:center; position:relative;
+  z-index:1;
+  margin-bottom:4px;
+}
 .hero-visual::before{
   content:"";
   position:absolute;
@@ -368,4 +397,5 @@ section{padding:32px 0;}
   .caret{display:none;}
   .blink .eye-group{animation:none;}
   .pupil{transition:none;}
+  .crumb.active{transform:none;}
 }
