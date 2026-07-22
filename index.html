@@ -7,54 +7,91 @@
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Special+Elite&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,wght@0,600;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
   <div class="toolbar">
-    <div class="tb-left">
-      <div class="dots"><span></span><span></span><span></span></div>
-      <span>mariel-gomez.psd</span>
+    <div class="path-bar">
+      <svg class="folder-icon" width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 1.5C0 0.67 0.67 0 1.5 0H5.4C5.87 0 6.32 0.22 6.6 0.6L7.4 1.65C7.68 2.03 8.13 2.25 8.6 2.25H13.5C14.33 2.25 15 2.92 15 3.75V11.5C15 12.33 14.33 13 13.5 13H1.5C0.67 13 0 12.33 0 11.5V1.5Z" fill="currentColor"/>
+      </svg>
+      <nav class="breadcrumb" id="breadcrumb">
+        <a href="#hero" class="crumb active" data-crumb="hero">Home</a>
+        <span class="sep">›</span>
+        <a href="#work" class="crumb" data-crumb="work">Work</a>
+        <span class="sep">›</span>
+        <a href="#about" class="crumb" data-crumb="about">About</a>
+        <span class="sep">›</span>
+        <a href="#contact" class="crumb" data-crumb="contact">Contact</a>
+      </nav>
     </div>
-    <div class="tb-right">
-      <span class="tb-zoom">100%</span>
-      <span id="coords">x: 0 · y: 0</span>
+    <div class="status-bar">
+      <span class="file-meta" id="fileMeta">1 of 4 · mariel-gomez.folder</span>
+      <div class="view-toggle">
+        <button class="view-btn active" aria-label="Grid view">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="0" width="5" height="5" rx="1" fill="currentColor"/><rect x="7" y="0" width="5" height="5" rx="1" fill="currentColor"/><rect x="0" y="7" width="5" height="5" rx="1" fill="currentColor"/><rect x="7" y="7" width="5" height="5" rx="1" fill="currentColor"/></svg>
+        </button>
+        <button class="view-btn" aria-label="List view">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="1" width="12" height="2" rx="1" fill="currentColor"/><rect x="0" y="5" width="12" height="2" rx="1" fill="currentColor"/><rect x="0" y="9" width="12" height="2" rx="1" fill="currentColor"/></svg>
+        </button>
+      </div>
     </div>
   </div>
 
   <div class="wrap">
 
-    <section class="hero">
-      <div class="hero-text">
-        <div class="eyebrow">hero</div>
-        <div class="hi-line">Hi, I'm</div>
-        <h1 class="name-line"><span class="accent">Mariel</span></h1>
-        <div class="tag-line">Here's my <span class="outline-text">portfolio</span>.</div>
-        <div class="role">UI/UX DESIGNER · FRONT-END DEVELOPER · GRAPHIC ARTIST</div>
-        <p>I build interfaces that hold up in the browser and look considered on the canvas — from Figma frame to shipped code, with an eye trained on color, type, and accessibility.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="https://github.com/riellouise">GitHub ↗</a>
-          <a class="btn btn-ghost" href="#">LinkedIn ↗</a>
-          <a class="btn btn-ghost" href="assets/resume.pdf">Resume</a>
+    <section class="hero" id="hero">
+      <div class="bubble-field" id="bubbleField" aria-hidden="true"></div>
+
+      <div class="hero-visual">
+        <div class="logo-float" id="logoFloat">
+            <div class="logo-mark" id="logoMark">
+            <svg viewBox="22 0 196 216" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- hair: left swoosh -->
+            <path d="M42 92 C48 60 62 42 88 58 C104 68 96 92 74 96 C58 99 46 90 50 74"
+                  class="lineStroke" stroke-width="15" fill="none" stroke-linecap="round"/>
+
+            <!-- hair: right swoosh with looping curl -->
+            <path d="M108 66 C118 34 138 20 156 40 C168 54 158 70 142 66
+                     C150 78 168 82 184 68 C196 58 198 42 188 34"
+                  class="lineStroke" stroke-width="15" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- left eye: bag + eyeball + pupil -->
+            <g class="eye-group" id="eyeL">
+                <circle class="eyebag" cx="62" cy="150" r="22"/>
+                <circle class="eyebag-mask" cx="68" cy="128" r="32"/>
+                <circle class="eyeball" cx="68" cy="126" r="28"/>
+                <circle class="pupil" cx="68" cy="126" r="10"/>
+            </g>
+
+            <!-- right eye: bag + eyeball + pupil -->
+            <g class="eye-group" id="eyeR">
+                <circle class="eyebag" cx="168" cy="146" r="20"/>
+                <circle class="eyebag-mask" cx="163" cy="124" r="30"/>
+                <circle class="eyeball" cx="163" cy="122" r="26"/>
+                <circle class="pupil" cx="163" cy="122" r="9"/>
+            </g>
+
+            <!-- squiggly mouth with upturned flick -->
+            <path d="M66 196 Q84 189 100 195 Q116 201 132 194 Q142 190 148 182"
+                  class="mouth" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+          </svg>
         </div>
       </div>
 
-      <div class="hero-visual">
-        <div class="logo-mark" id="logoMark">
-          <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-            <path d="M40 95 Q55 30 90 68" class="lineStroke" stroke-width="14" fill="none" stroke-linecap="round"/>
-            <path d="M112 62 Q128 22 152 55 Q168 78 190 58" class="lineStroke" stroke-width="14" fill="none" stroke-linecap="round"/>
-            <g class="eye-group" id="eyeL">
-              <circle class="eyeball" cx="68" cy="122" r="32"/>
-              <circle class="pupil" cx="78" cy="112" r="12"/>
-            </g>
-            <g class="eye-group" id="eyeR">
-              <circle class="eyeball" cx="150" cy="118" r="30"/>
-              <circle class="pupil" cx="159" cy="108" r="11"/>
-            </g>
-            <path d="M78 175 Q110 168 128 176 Q136 178 140 172" class="lineStroke" stroke-width="6" fill="none" stroke-linecap="round"/>
-          </svg>
+      <div class="hero-text">
+        <div class="hi-line">Hi, I'm</div>
+        <h1 class="name-line"><span class="accent" id="heroName">Mariel</span></h1>
+        <div class="tag-line">Here's my <span class="outline-text">portfolio</span>.</div>
+        <div class="role">UI/UX DESIGNER · FRONT-END DEVELOPER · GRAPHIC ARTIST</div>
+        <p>I build clean, accessible interfaces and bring a designer's eye to everything from wireframes to visual illustration.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/riellouise" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            <a class="btn btn-ghost" href="https://www.linkedin.com/in/mariellouisegomez/" target="_blank" rel="noopener noreferrer"> LinkedIn ↗</a>
         </div>
       </div>
     </section>
