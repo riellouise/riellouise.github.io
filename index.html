@@ -1,11 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Mariel Louise Gomez</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mariel Louise Gomez — Portfolio</title>
+<link rel="icon" type="image/png" href="assets/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,wght@0,600;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Mariel Louise Gomez</h1>
-  <p>UI/UX Designer & Front-End Developer</p>
+
+  <div class="toolbar">
+    <div class="tb-left">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <span>mariel-gomez.psd</span>
+    </div>
+    <div class="tb-right">
+      <span class="tb-zoom">100%</span>
+      <span id="coords">x: 0 · y: 0</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <section class="hero">
+      <div class="hero-text">
+        <div class="eyebrow">hero</div>
+        <div class="hi-line">Hi, I'm</div>
+        <h1 class="name-line"><span class="accent">Mariel</span></h1>
+        <div class="tag-line">Here's my <span class="outline-text">portfolio</span>.</div>
+        <div class="role">UI/UX DESIGNER · FRONT-END DEVELOPER · GRAPHIC ARTIST</div>
+        <p>I build interfaces that hold up in the browser and look considered on the canvas — from Figma frame to shipped code, with an eye trained on color, type, and accessibility.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/riellouise">GitHub ↗</a>
+          <a class="btn btn-ghost" href="#">LinkedIn ↗</a>
+          <a class="btn btn-ghost" href="assets/resume.pdf">Resume</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="logo-mark" id="logoMark">
+          <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+            <path d="M40 95 Q55 30 90 68" class="lineStroke" stroke-width="14" fill="none" stroke-linecap="round"/>
+            <path d="M112 62 Q128 22 152 55 Q168 78 190 58" class="lineStroke" stroke-width="14" fill="none" stroke-linecap="round"/>
+            <g class="eye-group" id="eyeL">
+              <circle class="eyeball" cx="68" cy="122" r="32"/>
+              <circle class="pupil" cx="78" cy="112" r="12"/>
+            </g>
+            <g class="eye-group" id="eyeR">
+              <circle class="eyeball" cx="150" cy="118" r="30"/>
+              <circle class="pupil" cx="159" cy="108" r="11"/>
+            </g>
+            <path d="M78 175 Q110 168 128 176 Q136 178 140 172" class="lineStroke" stroke-width="6" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+<script src="js/main.js"></script>
 </body>
 </html>
